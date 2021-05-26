@@ -1,0 +1,26 @@
+{% extends "../base.html" %}
+{% block head_title %}
+  Project List
+{% endblock head_title %}
+
+{% block Content %}
+  <h1>Project Management Aplication </h1>
+  <div>
+    
+    {% if user.is_authenticated %}
+      <p>User: {{ user.username }}</p>
+      <p>Fullname: {{ user.first_name|title }} {{ user.last_name |title }}</p>
+      <p>Email: {{ user.email }}</p>
+      <a href="{% url 'logout' %}">Log Out</a>
+    {% endif %}
+
+  </div>
+  <br>
+  <h2>Project List</h2>
+  <ul>
+    {% for project in object_list %}
+      <li>{{ project }}</li>
+      
+    {% endfor %}
+  </ul>
+{% endblock Content %}

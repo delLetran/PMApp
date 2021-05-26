@@ -1,0 +1,58 @@
+{% extends "../base.html" %}
+{% block head_title %}
+  Profiles
+{% endblock head_title %}
+{% block Content %}
+
+{% if request.user.is_authenticated %}
+  <div>
+    <h1>{{ request.user }} Profile</h1>
+    <p>{{ profile }} </p>
+    {% for invite in peer_invites.sent %}
+      {{ invite }} <br>
+    {% endfor %}
+    {% for invite in peer_invites.received %}
+      {{ invite }} <br>
+    {% endfor %}
+
+    <h2>Received Invites: </h2>
+      {% for invite in invites_received %}
+        <div>
+          <form action="" method="post"> {% csrf_token %}
+            {% if invite.status == "Waiting" %}
+              {{ invite.sender }} : {{ invite.status }} 
+              {{ form }}
+              <button type="submit" id="id_status_accepted" name="status" value="Accepted">Accept</button>
+              <button type="submit" id="id_status_declined" name="status" value="Declined">Decline</button>
+            {% elif invite.status == "Accepted" %}
+              {{ invite.sender }} : {{ invite.status }} <button type="submit">Dissociate</button>
+            {% endif %}
+          </form>  
+        </div>
+      {% endfor %}
+
+    <h2>Sent Invites: </h2>
+      {% for invite in invites_sent %}
+        <p>{{ invite.receiver }} : {{ invite.status }}  </p>
+      {% endfor %}
+
+  </div> 
+  <!-- <form action="" method="post">
+    {{ form }}
+  </form> -->
+  <form action="" method="delete">{% csrf_token %}
+      {% if invite.status == "Waiting" %}
+        <button type="submit">Accept</button>
+      {% endif %}
+  </form>
+  <!-- <form action="" method="put">
+    {{ form }}
+    {% for invite in invites_sent %}
+      {% if invite.status == "Waiting" %}
+        <button type="submit">Decline</button>
+      {% endif %}
+    {% endfor %}
+  </form> -->
+{% endif %}
+  
+{% endblock Content %}

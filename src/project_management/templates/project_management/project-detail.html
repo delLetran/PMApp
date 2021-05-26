@@ -1,0 +1,36 @@
+
+  
+
+{% extends "../base.html" %}
+{% block head_title %}
+  Project List
+{% endblock head_title %}
+
+{% block Content %}
+  <h1>Project Management Aplication </h1>
+  <div>
+    
+    <!-- {% if user.is_authenticated %}
+      <p>User: {{ user.username }}</p>
+      <p>Fullname: {{ user.first_name|title }} {{ user.last_name |title }}</p>
+      <p>Email: {{ user.email }}</p>
+    {% endif %}
+    {% for object in members.get_member %}
+      <p>object</p>
+    {% endfor %}
+  </div>
+  <br> -->
+  <h2>Project Details</h2>
+  <ul>
+      <li>{{ project.id }}</li>
+      <li>{{ project.name }}</li>
+      <li>{{ project.admin }}</li>
+      <ul>
+        {% for member in  group %}
+          <li>{{ member }}</li>
+        {% endfor %}
+      </ul>
+      
+  </ul>
+{% endblock Content %}
+  
